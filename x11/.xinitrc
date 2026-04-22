@@ -1,7 +1,6 @@
 #!/bin/sh
 
 redshift &
-picom &
 xset r rate 200 35 &
 xwallpaper --zoom /home/ilya/walls/penguin.png
 xrandr -s 1920x1080 &
