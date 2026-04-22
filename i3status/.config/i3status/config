@@ -1,0 +1,54 @@
+general {
+    interval 		= 1
+    colors 			= true
+    color_good      = '#88b090'
+    color_degraded  = '#ccdc90'
+    color_bad       = '#e89393'
+}
+
+order += "volume master"
+order += "disk /"
+#order += "run_watch DHCP"
+#order += "run_watch VPN"
+order += "wireless _first_"
+order += "battery all"
+order += "tztime local"
+
+wireless _first_ {
+    format_up = "%quality  %essid "
+    format_down = " Down  "
+}
+
+battery all {
+    format = "%status %percentage %remaining "
+    format_down = ""
+    last_full_capacity = true
+    integer_battery_capacity = true
+    low_threshold = 11
+    threshold_type = percentage
+    hide_seconds = true
+    status_chr = " "
+    status_bat = " "
+    status_unk = " "
+    status_full = " "
+}
+
+tztime local {
+    format = "  %a, %b %d   %H:%M:%S"
+}
+
+disk "/" {
+	format = "  %used / %total "
+	prefix_type	= custom
+	low_threshold = 20
+	threshold_type = percentage_avail
+}
+
+volume master {
+    format = " %volume  "
+    format_muted = " %volume  "
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
+}
+
