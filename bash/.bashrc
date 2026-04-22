@@ -80,13 +80,18 @@ function wifi {
     nmcli device wifi rescan 2>/dev/null
     sleep 2
 
-    local selected
-    selected=$(nmcli -f SSID,SIGNAL,SECURITY device wifi list | tail -n +2 | fzf --prompt="wifi> ")
+    local list
+    list=$(nmcli -f SSID,SIGNAL,SECURITY device wifi list | tail -n +2)
 
-    [ -z "$selected" ] && return 1
+    local selected_line
+    selected_line=$(echo "$list" | fzf --prompt="wifi> ")
+    [ -z "$selected_line" ] && return 1
+
+    local line_num
+    line_num=$(echo "$list" | grep -nF "$selected_line" | head -1 | cut -d: -f1)
 
     local ssid
-    ssid=$(echo "$selected" | awk '{print $1}')
+    ssid=$(nmcli -t -f SSID device wifi list | tail -n +1 | sed -n "${line_num}p")
 
     nmcli connection up "$ssid" 2>/dev/null || echo "can't connect to $ssid"
 }
