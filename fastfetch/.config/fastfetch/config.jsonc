@@ -4,50 +4,51 @@
     "source": "~/.config/fastfetch/arch.txt",
     "type": "file",
     "color": {
-      "1": "blue",
-    },
+      "1": "38;2;127;180;202"
+    }
   },
   "display": {
     "separator": " ",
+    "color": "38;2;220;215;186"
   },
   "modules": [
-    "title",
     {
       "type": "os",
       "format": "{3}",
       "key": "os    ",
-      "keyColor": "blue",
-    },
-    {
-      "type": "host",
-      "format": "{1}",
-      "key": "host  ",
-      "keyColor": "blue",
+      "keyColor": "38;2;127;180;202"
     },
     {
       "type": "kernel",
       "format": "{2}",
       "key": "kernel",
-      "keyColor": "blue",
+      "keyColor": "38;2;127;180;202"
     },
     {
       "type": "uptime",
       "format": "{1}d {2}h {3}m",
       "key": "uptime",
-      "keyColor": "blue",
+      "keyColor": "38;2;127;180;202"
     },
     {
       "type": "packages",
       "format": "{1}",
       "key": "pkgs  ",
-      "keyColor": "blue",
+      "keyColor": "38;2;127;180;202"
     },
     {
       "type": "memory",
       "format": "{1} / {2}",
       "key": "memory",
-      "keyColor": "blue",
+      "keyColor": "38;2;127;180;202"
     },
-    "break",
-  ],
+    {
+      "type": "disk",
+      "folders": "/",
+      "format": "{1} / {2}",
+      "key": "disk  ",
+      "keyColor": "38;2;127;180;202"
+    },
+    "break"
+  ]
 }
