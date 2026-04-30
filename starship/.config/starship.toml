@@ -1,4 +1,27 @@
 "$schema" = 'https://starship.rs/config-schema.json'
+scan_timeout = 100
+
+format = '$username$hostname$directory$git_branch$git_status$cmd_duration$character'
+
+[username]
+show_always = true
+format = '[$user]($style)'
+style_user = 'fg:#DCD7BA'
+style_root = 'fg:#FF5D62'
+
+[hostname]
+ssh_only = false
+format = '[@$hostname]($style) '
+style = 'fg:#DCD7BA'
+
+[directory]
+format = '[$path]($style)[$read_only]($read_only_style) '
+read_only = " 󰌾"
+style = 'fg:#7FB4CA'
+
+[character]
+success_symbol = '[>](fg:#DCA561)'
+error_symbol = '[>](fg:#C34043)'
 
 [aws]
 symbol = " "
@@ -30,9 +53,6 @@ symbol = " "
 [deno]
 symbol = " "
 
-[directory]
-read_only = " 󰌾"
-
 [docker_context]
 symbol = " "
 
@@ -55,7 +75,11 @@ symbol = " "
 symbol = " "
 
 [git_branch]
-symbol = " "
+format = '[$symbol$branch]($style) '
+style = 'fg:#938AA9'
+
+[git_status]
+style = 'fg:#C34043'
 
 [git_commit]
 tag_symbol = '  '
@@ -77,9 +101,6 @@ symbol = " "
 
 [hg_branch]
 symbol = " "
-
-[hostname]
-ssh_symbol = " "
 
 [java]
 symbol = " "
