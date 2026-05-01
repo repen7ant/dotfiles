@@ -31,7 +31,8 @@ Use `stow` with the `-d` (directory) and `-t` (target) flags to apply the symlin
 Apply configurations for universal tools (Bash, Neovim, Kitty, Starship, Yazi, etc.) that do not depend on the display server:
 
 ```bash
-stow -d common -t ~ *
+cd common
+stow -d -t ~ *
 ```
 
 ### 2. Graphical Environment
@@ -41,13 +42,15 @@ Choose **one** of the following depending on your current display server setup:
 **For Wayland:**
 
 ```bash
-stow -d wayland -t ~ *
+cd wayland
+stow -d -t ~ *
 ```
 
 **For X11 (i3, Polybar, Rofi, Picom, etc.):**
 
 ```bash
-stow -d xorg -t ~ *
+cd xorg
+stow -d -t ~ *
 ```
 
 ## Troubleshooting
@@ -63,7 +66,7 @@ Example:
 ```bash
 # If stow complains about ~/.config/nvim
 rm -rf ~/.config/nvim
-stow -d common -t ~ nvim
+stow -d -t ~ nvim
 ```
 
 ### Removing Symlinks
@@ -72,5 +75,6 @@ If you need to uninstall a configuration and remove its symlinks from your home 
 
 ```bash
 # Example: removing Xorg configs
-stow -d xorg -t ~ -D *
+cd xorg
+stow -d -t ~ -D *
 ```
