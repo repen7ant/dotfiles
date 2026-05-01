@@ -18,6 +18,12 @@
       "key": "os    ",
       "keyColor": "38;2;127;180;202"
     },
+{
+      "type": "host",
+      "format": "{3}",
+      "key": "host  ",
+      "keyColor": "38;2;127;180;202"
+    },
     {
       "type": "kernel",
       "format": "{2}",
