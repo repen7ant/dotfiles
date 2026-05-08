@@ -9,6 +9,7 @@ alias grep='grep --color=auto'
 export JAVA_HOME="/usr/lib/jvm/default"
 export EDITOR=nvim
 export PATH="$PATH:/home/ilya/.local/bin:$HOME/scripts"
+export PATH=~/.npm-global/bin:$PATH
 
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
