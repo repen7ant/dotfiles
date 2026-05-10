@@ -1,12 +1,8 @@
-# A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
-# If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
-"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
-
 [mgr]
 ratio          = [ 1, 4, 3 ]
 sort_by        = "alphabetical"
 sort_sensitive = false
-sort_reverse 	 = false
+sort_reverse   = false
 sort_dir_first = true
 sort_translit  = false
 linemode       = "none"
@@ -97,9 +93,9 @@ suppress_preload = false
 [plugin]
 fetchers = [
 	# Mimetype
-	{ id = "mime", url = "*/",         run = "mime.dir", prio = "high" },
-	{ id = "mime", url = "local://*",  run = "mime.local", prio = "high" },
-	{ id = "mime", url = "remote://*", run = "mime.remote", prio = "high" },
+	{ id = "mime", url = "*/",         run = "mime.dir",    group = "mime", prio = "high" },
+	{ id = "mime", url = "local://*",  run = "mime.local",  group = "mime", prio = "high" },
+	{ id = "mime", url = "remote://*", run = "mime.remote", group = "mime", prio = "high" },
 ]
 spotters = [
 	{ url = "*/", run = "folder" },
@@ -208,14 +204,14 @@ shell_offset = [ 0, 2, 50, 3 ]
 
 [confirm]
 # trash
-trash_title 	= "Trash {n} selected file{s}?"
-trash_origin	= "center"
-trash_offset	= [ 0, 0, 70, 20 ]
+trash_title  = "Trash {n} selected file{s}?"
+trash_origin = "center"
+trash_offset = [ 0, 0, 70, 20 ]
 
 # delete
-delete_title 	= "Permanently delete {n} selected file{s}?"
-delete_origin	= "center"
-delete_offset	= [ 0, 0, 70, 20 ]
+delete_title  = "Permanently delete {n} selected file{s}?"
+delete_origin = "center"
+delete_offset = [ 0, 0, 70, 20 ]
 
 # overwrite
 overwrite_title  = "Overwrite file?"
@@ -235,7 +231,7 @@ open_origin = "hovered"
 open_offset = [ 0, 1, 50, 7 ]
 
 [which]
-sort_by      	 = "none"
+sort_by        = "none"
 sort_sensitive = false
-sort_reverse 	 = false
+sort_reverse   = false
 sort_translit  = false
