@@ -38,4 +38,8 @@ return {
     event = 'BufReadPre',
     opts = {},
   },
+  {
+    'OXY2DEV/markview.nvim',
+    lazy = false,
+  },
 }
