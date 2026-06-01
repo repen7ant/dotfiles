@@ -51,3 +51,15 @@ function wifi {
     ssid=$(nmcli -t -f SSID device wifi list | tail -n +1 | sed -n "${line_num}p")
     nmcli connection up "$ssid" 2>/dev/null || echo "can't connect to $ssid"
 }
+
+function dc() {
+    local args=()
+    if [ -f "docker-compose.dev.yaml" ]; then
+        args=(-f docker-compose.dev.yaml)
+    fi
+    docker compose "${args[@]}" "$@"
+}
+
+alias up="dc up -d"
+alias down="dc down"
+alias logs="dc logs -f"

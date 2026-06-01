@@ -709,7 +709,7 @@
         "favorites": [
         ],
         "fillColor": "#000000",
-        "fillMode": "fit",
+        "fillMode": "crop",
         "hideWallpaperFilenames": false,
         "linkLightAndDarkWallpapers": false,
         "monitorDirectories": [
@@ -732,7 +732,7 @@
         "useOriginalImages": true,
         "useSolidColor": false,
         "useWallhaven": false,
-        "viewMode": "recursive",
+        "viewMode": "single",
         "wallhavenApiKey": "",
         "wallhavenCategories": "111",
         "wallhavenOrder": "desc",

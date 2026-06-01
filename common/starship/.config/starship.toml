@@ -1,23 +1,23 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 scan_timeout = 100
 
-format = '$directory$git_branch$git_status$cmd_duration$line_break$username$hostname$character'
+format = '$directory$git_branch$git_status$cmd_duration$all$line_break$username$hostname$character'
 
 [username]
 show_always = true
 format = '[$user]($style)'
-style_user = 'fg:#DCD7BA'
+style_user = 'fg:#7FB4CA'
 style_root = 'fg:#FF5D62'
 
 [hostname]
 ssh_only = false
 format = '[@$hostname]($style) '
-style = 'fg:#DCD7BA'
+style = 'fg:#7FB4CA'
 
 [directory]
 format = '[$path]($style)[$read_only]($read_only_style) '
 read_only = " 󰌾"
-style = 'fg:#7FB4CA'
+style = 'fg:#c0a36e'
 
 [character]
 success_symbol = '[>](fg:#DCA561)'

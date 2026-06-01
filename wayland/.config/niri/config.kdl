@@ -7,24 +7,16 @@ input {
 
         xkb {
             layout "us,ru"
-            options "grp:alt_shift_toggle"
+            options "grp:caps_toggle,caps:shift_capslock_nocancel"
         }
-
-        numlock
     }
 
     touchpad {
-        // off
         tap
         dwt
         dwtp
-        // drag false
-        // drag-lock
         // natural-scroll
-        // accel-speed 0.2
-        // accel-profile "flat"
-        // scroll-method "two-finger"
-        // disabled-on-external-mouse
+        accel-profile "flat"
     }
 
     mouse {
@@ -44,18 +36,8 @@ gestures {
     }
 }
 
-/-output "eDP-1" {
-    mode "1920x1080@60.010"
-
-    scale 2
-
-    transform "normal"
-
-    position x=1280 y=0
-}
-
 layout {
-    gaps 5
+    gaps 4
 
     center-focused-column "never"
 
@@ -70,37 +52,11 @@ layout {
     default-column-width { proportion 0.5; }
 
     focus-ring {
-        // off
-
-        width 1.5
-
-        active-color "#7BA696"
-        inactive-color "#505050"
+        width 2
     }
 
     border {
         off
-
-        width 1.5
-        active-color "#ffc87f"
-        inactive-color "#505050"
-
-        urgent-color "#9b0000"
-    }
-
-    shadow {
-        // on
-        softness 30
-        spread 5
-        offset x=0 y=5
-        color "#0007"
-    }
-
-    struts {
-        // left 64
-        // right 64
-        // top 64
-        // bottom 64
     }
 }
 
@@ -128,21 +84,6 @@ hotkey-overlay {
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
-animations {
-    // off
-
-    // slowdown 3.0
-}
-
-
-
-window-rule {
-    match app-id="Xdg-desktop-portal-gtk"
-    open-floating true
-    focus-ring {
-        off
-    }
-}
 
 window-rule {
     match title="is sharing your screen"
@@ -152,6 +93,19 @@ window-rule {
     }
 }
 
+window-rule {
+    match is-floating=true
+    focus-ring {
+        off
+    }
+}
+
+window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    match app-id=r#"^org\.gnome\.World\.Secrets$"#
+
+    block-out-from "screen-capture"
+}
 
 window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
@@ -163,17 +117,11 @@ window-rule {
     open-floating true
 }
 
-/-window-rule {
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
-    match app-id=r#"^org\.gnome\.World\.Secrets$"#
-
-    block-out-from "screen-capture"
-}
-
 window-rule {
-    // geometry-corner-radius 12
-    // clip-to-geometry true
+     geometry-corner-radius 12
+     clip-to-geometry true
 }
+
 
 overview {
     backdrop-color "#1F1F28"
@@ -222,13 +170,6 @@ binds {
     Mod+Shift+J     { move-window-down; }
     Mod+Shift+K     { move-window-up; }
     Mod+Shift+L     { move-column-right; }
-
-    // Alternative commands that move across workspaces when reaching
-    // the first or last window in a column.
-    // Mod+J     { focus-window-or-workspace-down; }
-    // Mod+K     { focus-window-or-workspace-up; }
-    // Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
-    // Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
 
     Mod+Home { focus-column-first; }
     Mod+End  { focus-column-last; }
@@ -292,10 +233,6 @@ binds {
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
 
-    // While maximize-column leaves gaps and borders around the window,
-    // maximize-window-to-edges doesn't: the window expands to the edges of the screen.
-    // This bind corresponds to normal window maximizing,
-    // e.g. by double-clicking on the titlebar.
     Mod+M { maximize-window-to-edges; }
 
     Mod+Ctrl+F { expand-column-to-available-width; }

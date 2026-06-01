@@ -14,7 +14,7 @@
   "modules": [
     {
       "type": "os",
-      "format": "{3}",
+      "format": "{3} (btw)",
       "key": "os    ",
       "keyColor": "38;2;127;180;202"
     },
