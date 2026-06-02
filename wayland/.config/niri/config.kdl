@@ -117,11 +117,29 @@ window-rule {
     open-floating true
 }
 
+workspace "terminal"
+workspace "browser"
+workspace "dev"
+
 window-rule {
-     geometry-corner-radius 12
-     clip-to-geometry true
+    match app-id="helium"
+    open-on-workspace "browser"
 }
 
+window-rule {
+    match app-id="librewolf"
+    open-on-workspace "browser"
+}
+
+window-rule {
+    match app-id="GitHub Desktop"
+    open-on-workspace "dev"
+}
+
+window-rule {
+    match app-id="DBeaver"
+    open-on-workspace "dev"
+}
 
 overview {
     backdrop-color "#1F1F28"
