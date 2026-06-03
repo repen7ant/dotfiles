@@ -63,7 +63,8 @@ layout {
 spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP=niri"
 spawn-at-startup "systemctl" "--user" "start" "graphical-session.target"
-spawn-sh-at-startup "qs -c ~/.config/quickshell/noctalia-shell/"
+spawn-sh-at-startup "qs -c ~/.config/quickshell/bar/"
+spawn-at-startup "swaybg" "-i" "/home/ilya/Pictures/walls/night-sky.jpg" "-m" "fill"
 
 environment {
     GTK_THEME "Adwaita:dark"
@@ -117,18 +118,18 @@ window-rule {
     open-floating true
 }
 
-workspace "terminal"
-workspace "browser"
-workspace "dev"
+workspace ""
+workspace "󰖟"
+workspace ""
 
 window-rule {
     match app-id="helium"
-    open-on-workspace "browser"
+    open-on-workspace "󰖟"
 }
 
 window-rule {
     match app-id="librewolf"
-    open-on-workspace "browser"
+    open-on-workspace "󰖟"
 }
 
 window-rule {
@@ -152,7 +153,7 @@ binds {
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+E hotkey-overlay-title="Run a file manager: yazi"{ spawn "kitty" "-e" "yazi"; }
 
-    Super+Ctrl+L hotkey-overlay-title="Lock the Screen" { spawn-sh "/usr/sbin/qs --config ~/.config/quickshell/noctalia-shell ipc call lockScreen lock"; }
+    Super+Ctrl+L hotkey-overlay-title="Lock the Screen" { spawn-sh "qs -c ~/.config/quickshell/bar ipc call lock lock"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
@@ -164,8 +165,8 @@ binds {
     XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
     XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
 
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "qs -c ~/.config/quickshell/bar ipc call brightness up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "qs -c ~/.config/quickshell/bar ipc call brightness down"; }
 
     Mod+O repeat=false { toggle-overview; }
 
@@ -282,5 +283,5 @@ binds {
     Mod+Shift+P { power-off-monitors; }
 }
 
-include "./noctalia.kdl"
+include "./colors.kdl"
 
