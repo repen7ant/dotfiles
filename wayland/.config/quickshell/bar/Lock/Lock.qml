@@ -11,9 +11,14 @@ Scope {
   property string _pending: ""
   property string wallpaper: ""
 
+  function lockNow() {
+    wpProc.running = true
+    lockSession.locked = true
+  }
+
   IpcHandler {
     target: "lock"
-    function lock(): void { lockSession.locked = true }
+    function lock(): void { root.lockNow() }
   }
 
   Process {
@@ -30,7 +35,7 @@ Scope {
     stdout: SplitParser {
       onRead: line => {
         if (line.indexOf("PrepareForSleep") !== -1 && line.indexOf("true") !== -1)
-          lockSession.locked = true
+          root.lockNow()
       }
     }
   }

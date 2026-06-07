@@ -64,7 +64,7 @@ spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XD
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP=niri"
 spawn-at-startup "systemctl" "--user" "start" "graphical-session.target"
 spawn-sh-at-startup "qs -c ~/.config/quickshell/bar/"
-spawn-at-startup "swaybg" "-i" "/home/ilya/Pictures/walls/night-sky.jpg" "-m" "fill"
+spawn-at-startup "waypaper" "--restore"
 
 environment {
     GTK_THEME "Adwaita:dark"
@@ -118,6 +118,11 @@ window-rule {
     open-floating true
 }
 
+window-rule {
+    match app-id="waypaper"
+    open-floating true
+}
+
 workspace ""
 workspace "󰖟"
 workspace ""
@@ -152,6 +157,7 @@ binds {
     Mod+Q hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+E hotkey-overlay-title="Run a file manager: yazi"{ spawn "kitty" "-e" "yazi"; }
+    Mod+Shift+W hotkey-overlay-title="Change wallpaper" { spawn "waypaper"; }
 
     Super+Ctrl+L hotkey-overlay-title="Lock the Screen" { spawn-sh "qs -c ~/.config/quickshell/bar ipc call lock lock"; }
 
