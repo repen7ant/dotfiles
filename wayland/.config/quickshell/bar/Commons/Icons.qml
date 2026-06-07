@@ -35,6 +35,8 @@ Singleton {
     "player-skip-forward-filled":"\u{f694}",
     "power": "\u{eb0d}",
     "lock":  "\u{eae2}",
+    "moon":     "\u{eaf8}",
+    "moon-off": "\u{f162}",
     "leaf":   "\u{ed4f}",
     "scale":  "\u{ebc2}",
     "rocket": "\u{ec45}",

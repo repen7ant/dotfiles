@@ -5,6 +5,7 @@ Item {
   id: root
 
   property string icon: ""
+  property int    iconPixelSize: Theme.iconSize
   property string label: ""
   property color  textColor: Theme.fg
   property color  iconColor: textColor
@@ -39,7 +40,7 @@ Item {
         visible: root.icon.length > 0
         anchors.verticalCenter: parent.verticalCenter
         font.family: Icons.fontFamily
-        font.pixelSize: Theme.iconSize
+        font.pixelSize: root.iconPixelSize
         color: root.iconColor
         text: Icons.get(root.icon)
       }

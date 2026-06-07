@@ -3,11 +3,17 @@ import qs.Widgets
 import qs.Services
 
 Pill {
-  icon: Backlight.percent <= 1 ? "sun-off"
-      : Backlight.percent <= 50 ? "brightness-low" : "brightness-high"
-  label: Backlight.percent + "%"
+  // No backlight (desktop) → act as a pure night-light toggle.
+  readonly property bool hasBacklight: Backlight.device !== ""
+
+  icon: hasBacklight
+      ? (Backlight.percent <= 1 ? "sun-off"
+       : Backlight.percent <= 50 ? "brightness-low" : "brightness-high")
+      : (NightLight.active ? "moon" : "moon-off")
+  iconPixelSize: hasBacklight ? Theme.iconSize : Theme.fontSize + 1
+  label: hasBacklight ? Backlight.percent + "%" : ""
   iconColor: NightLight.active ? Theme.primary : Theme.fg
   tooltipText: NightLight.active ? "Night light: on" : "Night light: off"
-  onScrolled: dy => Backlight.changeBy(dy > 0 ? 5 : -5)
+  onScrolled: dy => { if (hasBacklight) Backlight.changeBy(dy > 0 ? 5 : -5) }
   onClicked: NightLight.toggle()
 }
