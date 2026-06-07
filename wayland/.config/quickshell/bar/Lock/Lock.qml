@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Effects
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
@@ -8,10 +9,30 @@ import qs.Commons
 Scope {
   id: root
   property string _pending: ""
+  property string wallpaper: ""
 
   IpcHandler {
     target: "lock"
     function lock(): void { lockSession.locked = true }
+  }
+
+  Process {
+    id: wpProc
+    running: true
+    command: ["sh", "-c", "for p in $(pgrep -x swaybg); do tr '\\0' '\\n' < /proc/$p/cmdline; done | grep -A1 -x -- -i | tail -1"]
+    stdout: StdioCollector { onStreamFinished: root.wallpaper = text.trim() }
+  }
+
+  Process {
+    id: sleepMonitor
+    running: true
+    command: ["gdbus", "monitor", "--system", "--dest", "org.freedesktop.login1", "--object-path", "/org/freedesktop/login1"]
+    stdout: SplitParser {
+      onRead: line => {
+        if (line.indexOf("PrepareForSleep") !== -1 && line.indexOf("true") !== -1)
+          lockSession.locked = true
+      }
+    }
   }
 
   WlSessionLock {
@@ -21,6 +42,31 @@ Scope {
     WlSessionLockSurface {
       color: Theme.surface
       Component.onCompleted: pw.forceActiveFocus()
+
+      Image {
+        id: wp
+        anchors.fill: parent
+        source: root.wallpaper ? "file://" + root.wallpaper : ""
+        fillMode: Image.PreserveAspectCrop
+        asynchronous: true
+        cache: true
+        visible: false
+      }
+
+      MultiEffect {
+        anchors.fill: parent
+        source: wp
+        visible: wp.status === Image.Ready
+        blurEnabled: true
+        blur: 1.0
+        blurMax: 64
+      }
+
+      Rectangle {
+        anchors.fill: parent
+        color: "#000000"
+        opacity: 0.45
+      }
 
       Column {
         anchors.centerIn: parent

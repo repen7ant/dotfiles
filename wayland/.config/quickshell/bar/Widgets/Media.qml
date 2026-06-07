@@ -1,17 +1,20 @@
-import Quickshell.Services.Mpris
+import qs.Commons
+import qs.Widgets
+import qs.Services
+import qs.Panels
 
-Stat {
-  readonly property var player: {
-    var ps = Mpris.players.values
-    for (var i = 0; i < ps.length; i++) if (ps[i].canControl) return ps[i]
-    return null
+Pill {
+  id: media
+  visible: Player.hasPlayer && (Player.isPlaying || Player.title.length > 0)
+  labelMaxWidth: 460
+  icon: Player.isPlaying ? "player-pause-filled" : "player-play-filled"
+  label: Player.title + (Player.artist ? " — " + Player.artist : "")
+
+  onClicked: Player.playPause()
+  onRightClicked: panel.toggle()
+
+  MediaPanel {
+    id: panel
+    anchorItem: media
   }
-
-  visible: player !== null
-  labelMaxWidth: 280
-  icon: player ? (player.isPlaying ? String.fromCodePoint(0xF03E4)    // md-pause (click to pause)
-                                   : String.fromCodePoint(0xF040A))   // md-play (click to play)
-               : ""
-  label: player ? (player.trackTitle + (player.trackArtist ? " — " + player.trackArtist : "")) : ""
-  onClicked: if (player) player.isPlaying = !player.isPlaying
 }

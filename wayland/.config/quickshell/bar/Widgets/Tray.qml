@@ -1,10 +1,10 @@
 import QtQuick
+import Quickshell
 import Quickshell.Services.SystemTray
 import qs.Commons
 
 Row {
   id: root
-  property var panelWindow: null
 
   spacing: Theme.gap
   anchors.verticalCenter: parent ? parent.verticalCenter : undefined
@@ -15,28 +15,49 @@ Row {
     delegate: Item {
       id: entry
       required property var modelData
-      implicitWidth: Theme.fontSize + 6
-      implicitHeight: Theme.fontSize + 6
+      readonly property int sz: 18
+      implicitWidth: sz
+      implicitHeight: sz
       anchors.verticalCenter: parent.verticalCenter
 
       Image {
-        anchors.fill: parent
+        anchors.centerIn: parent
+        width: entry.sz
+        height: entry.sz
         source: entry.modelData.icon
+        sourceSize.width: entry.sz * 2
+        sourceSize.height: entry.sz * 2
         fillMode: Image.PreserveAspectFit
         smooth: true
+        mipmap: true
+      }
+
+      QsMenuAnchor {
+        id: trayMenu
+        menu: entry.modelData.menu
+        anchor.item: entry
+        anchor.rect.x: entry.width / 2
+        anchor.rect.y: entry.height + 4
       }
 
       MouseArea {
         anchors.fill: parent
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
-        onClicked: {
+        hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
+        acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+        onClicked: mouse => {
           if (mouse.button === Qt.LeftButton) {
-            entry.modelData.activate()
+            if (entry.modelData.onlyMenu && entry.modelData.hasMenu)
+              trayMenu.open()
+            else
+              entry.modelData.activate()
+          } else if (mouse.button === Qt.MiddleButton) {
+            entry.modelData.secondaryActivate()
           } else if (mouse.button === Qt.RightButton && entry.modelData.hasMenu) {
-            var p = entry.mapToItem(null, 0, entry.height)
-            entry.modelData.display(root.panelWindow, p.x, p.y)
+            trayMenu.open()
           }
         }
+        onWheel: wheel => entry.modelData.scroll(wheel.angleDelta.y, false)
       }
     }
   }

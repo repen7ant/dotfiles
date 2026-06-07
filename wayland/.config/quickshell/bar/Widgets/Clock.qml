@@ -1,12 +1,11 @@
 import QtQuick
 import Quickshell
 import qs.Commons
+import qs.Widgets
 
-Text {
-  color: Theme.fg
-  font.family: Theme.fontFamily
-  font.pixelSize: Theme.fontSize
-  text: Qt.formatDateTime(clock.date, "HH:mm ddd, MMM dd")
+Pill {
+  interactive: false
+  label: Qt.formatDateTime(clock.date, "HH:mm ddd, MMM dd")
 
   SystemClock {
     id: clock

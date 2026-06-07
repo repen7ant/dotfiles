@@ -1,82 +1,62 @@
 import QtQuick
 import Quickshell
 import qs.Commons
+import qs.Widgets
 
-Item {
+Pill {
   id: pm
-  implicitWidth: btn.implicitWidth + Theme.padH
-  implicitHeight: Theme.barHeight
-  anchors.verticalCenter: parent ? parent.verticalCenter : undefined
+  icon: "power"
 
-  Text {
-    id: btn
-    anchors.centerIn: parent
-    text: String.fromCodePoint(0xF0425)   // md-power
-    color: Theme.fg
-    font.family: Theme.fontFamily
-    font.pixelSize: Theme.fontSize + 2
+  onClicked: menu.toggle()
 
-    MouseArea {
-      anchors.fill: parent
-      cursorShape: Qt.PointingHandCursor
-      onClicked: popup.visible = !popup.visible
-    }
-  }
+  Panel {
+    id: menu
+    anchorItem: pm
+    panelWidth: 160
 
-  PopupWindow {
-    id: popup
-    anchor.item: pm
-    anchor.rect.x: pm.width - width   // right-align popup to the button
-    anchor.rect.y: pm.height + 4      // just below the bar
-    implicitWidth: 150
-    implicitHeight: col.implicitHeight + 8
-    visible: false
-    grabFocus: true                   // click outside dismisses
-    color: "transparent"
+    Repeater {
+      model: [
+        { label: "Lock",     icon: "lock",  act: ["qs", "-c", "bar", "ipc", "call", "lock", "lock"] },
+        { label: "Suspend",  icon: "power", act: ["systemctl", "suspend"] },
+        { label: "Logout",   icon: "power", act: ["niri", "msg", "action", "quit", "-s"] },
+        { label: "Reboot",   icon: "power", act: ["systemctl", "reboot"] },
+        { label: "Poweroff", icon: "power", act: ["systemctl", "poweroff"] }
+      ]
 
-    Rectangle {
-      anchors.fill: parent
-      color: Theme.surfaceVariant
-      radius: Theme.radius
-      border.width: 1
-      border.color: Theme.outline
+      delegate: Rectangle {
+        required property var modelData
+        width: parent.width
+        height: 30
+        radius: Theme.radius
+        color: rowMa.containsMouse ? Theme.hover : "transparent"
+        Behavior on color { ColorAnimation { duration: Theme.animFast } }
 
-      Column {
-        id: col
-        anchors { left: parent.left; right: parent.right; top: parent.top; margins: 4 }
+        Row {
+          anchors { left: parent.left; verticalCenter: parent.verticalCenter; leftMargin: Theme.padH }
+          spacing: 8
 
-        Repeater {
-          model: [
-            { label: "Lock",     act: ["qs", "-c", Quickshell.env("HOME") + "/.config/quickshell/bar", "ipc", "call", "lock", "lock"] },
-            { label: "Suspend",  act: ["systemctl", "suspend"] },
-            { label: "Logout",   act: ["niri", "msg", "action", "quit", "-s"] },
-            { label: "Reboot",   act: ["systemctl", "reboot"] },
-            { label: "Poweroff", act: ["systemctl", "poweroff"] }
-          ]
-
-          delegate: Rectangle {
-            required property var modelData
-            width: parent.width
-            height: 28
-            radius: Theme.radius
-            color: ma.containsMouse ? Theme.primary : "transparent"
-
-            Text {
-              anchors { left: parent.left; verticalCenter: parent.verticalCenter; leftMargin: Theme.padH }
-              text: modelData.label
-              color: ma.containsMouse ? Theme.surface : Theme.fg
-              font.family: Theme.fontFamily
-              font.pixelSize: Theme.fontSize
-            }
-
-            MouseArea {
-              id: ma
-              anchors.fill: parent
-              hoverEnabled: true
-              cursorShape: Qt.PointingHandCursor
-              onClicked: { Quickshell.execDetached(modelData.act); popup.visible = false }
-            }
+          Text {
+            anchors.verticalCenter: parent.verticalCenter
+            text: Icons.get(modelData.icon)
+            font.family: Icons.fontFamily
+            font.pixelSize: Theme.iconSize
+            color: Theme.fg
           }
+          Text {
+            anchors.verticalCenter: parent.verticalCenter
+            text: modelData.label
+            font.family: Theme.fontFamily
+            font.pixelSize: Theme.fontSize
+            color: Theme.fg
+          }
+        }
+
+        MouseArea {
+          id: rowMa
+          anchors.fill: parent
+          hoverEnabled: true
+          cursorShape: Qt.PointingHandCursor
+          onClicked: { Quickshell.execDetached(modelData.act); menu.close() }
         }
       }
     }

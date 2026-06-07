@@ -6,12 +6,11 @@ import Quickshell.Io
 Singleton {
   id: root
 
-  property string type: "disconnected"   // "wifi" | "ethernet" | "disconnected"
+  property string type: "disconnected"
   property string name: ""
 
   function _read() { status.running = true }
 
-  // one-shot status read; parses the first physically-connected device
   Process {
     id: status
     command: ["nmcli", "-t", "-f", "TYPE,STATE,CONNECTION", "device", "status"]
@@ -31,7 +30,6 @@ Singleton {
     }
   }
 
-  // long-running monitor: any line means NM state changed → re-read
   Process {
     id: monitor
     command: ["nmcli", "monitor"]

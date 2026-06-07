@@ -1,10 +1,12 @@
 import qs.Commons
+import qs.Widgets
 import qs.Services
 
-Stat {
-  icon: Audio.muted ? String.fromCodePoint(0xF026) : String.fromCodePoint(0xF028)
-  label: Audio.muted ? "muted" : Math.round(Audio.volume * 100) + "%"
+Pill {
+  icon: Audio.muted ? "volume-off"
+      : Audio.volume <= 0.5 ? "volume-2" : "volume"
+  label: Audio.muted ? "" : Math.round(Audio.volume * 100) + "%"
   textColor: Audio.muted ? Theme.fgDim : Theme.fg
   onClicked: Audio.toggleMute()
-  onScrolled: Audio.setVolume(Audio.volume + (dy > 0 ? 0.05 : -0.05))
+  onScrolled: dy => Audio.setVolume(Audio.volume + (dy > 0 ? 0.05 : -0.05))
 }

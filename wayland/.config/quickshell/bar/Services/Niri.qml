@@ -7,7 +7,6 @@ import QtQuick
 Singleton {
   id: root
 
-  // list of workspace objects: {id, idx, name, output, is_active, is_focused, is_urgent}
   property var workspaces: []
   property string kbLayout: ""
 
@@ -17,7 +16,6 @@ Singleton {
 
   function _handle(evt) {
     if (evt.WorkspacesChanged) {
-      // sort by idx so the bar order is stable
       var ws = evt.WorkspacesChanged.workspaces.slice()
       ws.sort((a, b) => a.idx - b.idx)
       root.workspaces = ws
@@ -36,12 +34,11 @@ Singleton {
     id: stream
     command: ["niri", "msg", "--json", "event-stream"]
     running: true
-    // if niri restarts the stream dies; relaunch it
     onRunningChanged: if (!running) running = true
     stdout: SplitParser {
       onRead: line => {
         try { root._handle(JSON.parse(line)) }
-        catch (e) { /* ignore non-JSON / partial lines */ }
+        catch (e) {}
       }
     }
   }

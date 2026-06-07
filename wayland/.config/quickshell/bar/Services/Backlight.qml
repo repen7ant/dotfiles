@@ -12,8 +12,6 @@ Singleton {
   property int max: 1
   readonly property int percent: max > 0 ? Math.round(current / max * 100) : 0
 
-  // Set brightness via logind D-Bus (no root / video group / udev rule needed;
-  // works because we are the active graphical session). Value is raw (0..max).
   function setRaw(raw) {
     if (!device) return
     var v = Math.max(1, Math.min(root.max, Math.round(raw)))
@@ -21,12 +19,11 @@ Singleton {
       "/org/freedesktop/login1/session/auto",
       "org.freedesktop.login1.Session", "SetBrightness", "ssu",
       "backlight", root.device, String(v)])
-    root.current = v   // optimistic update so the widget/OSD react instantly
+    root.current = v
   }
   function set(pct) { setRaw(pct / 100 * root.max) }
   function changeBy(deltaPct) { set(percent + deltaPct) }
 
-  // detect device, then read max + current
   Process {
     id: detect
     command: ["sh", "-c", "ls -1 /sys/class/backlight | head -1"]
@@ -46,7 +43,6 @@ Singleton {
     onLoaded: { var n = parseInt(maxFile.text()); if (n > 0) root.max = n }
   }
 
-  // sysfs has no inotify, so re-read current on a timer
   FileView {
     id: curFile
     path: root.device ? "/sys/class/backlight/" + root.device + "/brightness" : ""
@@ -58,7 +54,6 @@ Singleton {
     onTriggered: curFile.reload()
   }
 
-  // niri brightness keys call these (single code path through logind)
   IpcHandler {
     target: "brightness"
     function up(): void { root.changeBy(5) }

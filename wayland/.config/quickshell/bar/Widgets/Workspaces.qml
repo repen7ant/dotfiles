@@ -4,6 +4,7 @@ import qs.Services
 
 Row {
   spacing: Theme.gap
+  anchors.verticalCenter: parent ? parent.verticalCenter : undefined
 
   Repeater {
     model: Niri.workspaces
@@ -16,9 +17,12 @@ Row {
            : "transparent"
       border.width: modelData.is_urgent ? 1 : 0
       border.color: Theme.error
-      implicitHeight: Theme.barHeight - 8
+      implicitHeight: Theme.capsuleHeight
       implicitWidth: label.implicitWidth + Theme.padH * 2
       anchors.verticalCenter: parent.verticalCenter
+
+      Behavior on color        { ColorAnimation { duration: Theme.animFast } }
+      Behavior on border.width { NumberAnimation { duration: Theme.animFast } }
 
       Text {
         id: label
@@ -27,6 +31,8 @@ Row {
         color: modelData.is_focused ? Theme.surface : Theme.fg
         font.family: Theme.fontFamily
         font.pixelSize: Theme.fontSize
+
+        Behavior on color { ColorAnimation { duration: Theme.animFast } }
       }
 
       MouseArea {
