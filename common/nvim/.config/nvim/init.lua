@@ -13,7 +13,7 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
-require('lazy').setup {
+require('lazy').setup({
   require 'plugins.neotree',
   require 'plugins.colortheme',
   require 'plugins.bufferline',
@@ -28,5 +28,6 @@ require('lazy').setup {
   require 'plugins.indent-blankline',
   require 'plugins.misc',
   require 'plugins.harpoon',
-  -- require 'plugins.compile-mode',
-}
+}, {
+  rocks = { enabled = false },
+})

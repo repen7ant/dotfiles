@@ -1,80 +1,63 @@
 # Dotfiles
 
-My personal configuration files, managed with GNU Stow. The repository is organized into modules to easily switch between display servers (X11 and Wayland) while keeping common application configurations separate.
+Personal configuration files, managed with GNU Stow. Split into modules to switch between X11 and Wayland while keeping common configs separate.
 
 ## Prerequisites
 
-Before applying the configurations, ensure you have `git` and `stow` installed on your system.
-
 ```bash
-# For Arch Linux
 sudo pacman -S git stow
 ```
 
 ## Installation
-
-1. Clone this repository into your home directory:
 
 ```bash
 git clone https://github.com/repen7ant/dotfiles ~/dotfiles
 cd ~/dotfiles
 ```
 
-2. Make sure you don't have existing default configuration files in your `~` or `~/.config` directories for the apps you are about to stow. If you do, `stow` will abort to prevent overwriting them.
-
 ## Applying Configurations
 
-Use `stow` with the `-d` (directory) and `-t` (target) flags to apply the symlinks.
-
-### 1. Common Base
-
-Apply configurations for universal tools (Bash, Neovim, Kitty, Starship, Yazi, etc.) that do not depend on the display server:
+### Common (Bash, Neovim, Kitty, Starship, Yazi, etc.)
 
 ```bash
 cd common
-stow -d -t ~ *
+stow -t ~ *
 ```
 
-### 2. Graphical Environment
+### Graphical Environment
 
-Choose **one** of the following depending on your current display server setup:
-
-**For Wayland:**
+**Wayland:**
 
 ```bash
 cd wayland
-stow -d -t ~ *
+stow -t ~ *
 ```
 
-**For X11 (i3, Polybar, Rofi, Picom, etc.):**
+**X11 (i3, Polybar, Rofi, Picom, etc.):**
 
 ```bash
 cd xorg
-stow -d -t ~ *
+stow -t ~ *
 ```
 
 ## Troubleshooting
 
-### "WARNING! stowing ... would cause conflicts"
-
-If `stow` throws this error, it means a file or directory already exists at the target location.
-
-To fix this, remove the conflicting file or directory (make sure to back it up if it contains important data) and run the `stow` command again.
-
-Example:
+**Conflict error** — target already exists:
 
 ```bash
-# If stow complains about ~/.config/nvim
 rm -rf ~/.config/nvim
-stow -d -t ~ nvim
+stow -t ~ nvim
 ```
 
-### Removing Symlinks
-
-If you need to uninstall a configuration and remove its symlinks from your home directory, use the `-D` (delete) flag:
+**Remove symlinks:**
 
 ```bash
-# Example: removing Xorg configs
 cd xorg
-stow -d -t ~ -D *
+stow -t ~ -D *
+```
+
+## Packages
+
+```bash
+yay -S --needed discord dbeaver gimp github-desktop-bin helium-browser-bin libreoffice-still moonlight-qt qbittorrent telegram-desktop torbrowser-launcher virt-manager v2raya waypaper picard gpu-screen-recorder-ui fuzzel 7zip btop cmatrix cuetools fastfetch fd fzf less mpv neovim nmap ripgrep rsync shntool speedtest-cli tree unzip wget wl-clipboard yazi zip zoxide tailscale gpu-screen-recorder stow starship cmake composer docker docker-buildx docker-compose go jdk17-openjdk jdk21-openjdk kitty npm python-uv ruff git tree-sitter-cli niri swaybg wlsunset quickshell mpd libvirt qemu-full ly
 ```

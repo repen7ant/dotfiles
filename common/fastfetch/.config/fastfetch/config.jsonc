@@ -38,7 +38,7 @@
     },
     {
       "type": "packages",
-      "format": "{1}",
+      "format": "{all}",
       "key": "pkgs  ",
       "keyColor": "38;2;127;180;202"
     },
