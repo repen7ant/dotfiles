@@ -16,11 +16,11 @@ Pill {
 
     Repeater {
       model: [
-        { label: "Lock",     icon: "lock",  act: ["qs", "-c", "bar", "ipc", "call", "lock", "lock"] },
-        { label: "Suspend",  icon: "power", act: ["systemctl", "suspend"] },
-        { label: "Logout",   icon: "power", act: ["niri", "msg", "action", "quit", "-s"] },
-        { label: "Reboot",   icon: "power", act: ["systemctl", "reboot"] },
-        { label: "Poweroff", icon: "power", act: ["systemctl", "poweroff"] }
+        { label: "Lock",     icon: "lock",    act: ["qs", "-c", "bar", "ipc", "call", "lock", "lock"] },
+        { label: "Suspend",  icon: "zzz",     act: ["systemctl", "suspend"] },
+        { label: "Logout",   icon: "logout",  act: ["niri", "msg", "action", "quit", "-s"] },
+        { label: "Reboot",   icon: "refresh", act: ["systemctl", "reboot"] },
+        { label: "Poweroff", icon: "power",   act: ["systemctl", "poweroff"] }
       ]
 
       delegate: Rectangle {

@@ -3,7 +3,6 @@ pragma Singleton
 import Quickshell
 import Quickshell.Io
 import QtQuick
-import qs.Commons
 
 Singleton {
   id: root
@@ -18,17 +17,6 @@ Singleton {
   property real diskUsedGb: 0
   property real diskTotalGb: 0
   property string _tempPath: ""
-
-  readonly property int warnPct: 80
-  readonly property int critPct: 90
-  readonly property int warnTemp: 75
-  readonly property int critTemp: 90
-
-  function _pctColor(v) { return v >= critPct ? Theme.crit : v >= warnPct ? Theme.warn : Theme.primary }
-  readonly property color cpuColor:  _pctColor(cpu)
-  readonly property color memColor:  _pctColor(mem)
-  readonly property color diskColor: _pctColor(disk)
-  readonly property color tempColor: cpuTemp >= critTemp ? Theme.crit : cpuTemp >= warnTemp ? Theme.warn : Theme.primary
 
   function _tick() {
     statFile.reload(); memFile.reload()

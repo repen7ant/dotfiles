@@ -2,7 +2,6 @@ import QtQuick
 import qs.Commons
 import qs.Widgets
 import qs.Services
-import qs.Panels
 
 Item {
   id: sys
@@ -57,8 +56,7 @@ Item {
   MouseArea {
     anchors.fill: parent
     hoverEnabled: true
-    cursorShape: Qt.PointingHandCursor
-    onClicked: panel.toggle()
+    acceptedButtons: Qt.NoButton
     onEntered: tip.show()
     onExited: tip.hide()
   }
@@ -69,10 +67,5 @@ Item {
     text: "CPU " + SysInfo.cpu + "% · " + SysInfo.cpuFreq.toFixed(1) + " GHz · " + SysInfo.cpuTemp + "°C"
         + "\nRAM " + SysInfo.mem + "%"
         + "\nDisk " + SysInfo.disk + "% (" + SysInfo.diskUsedGb.toFixed(0) + "/" + SysInfo.diskTotalGb.toFixed(0) + " GiB)"
-  }
-
-  PerfPanel {
-    id: panel
-    anchorItem: sys
   }
 }
