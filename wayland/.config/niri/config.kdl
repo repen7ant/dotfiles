@@ -72,6 +72,7 @@ environment {
     XCURSOR_THEME "Bibata-Modern-Classic"
     XCURSOR_SIZE "20"
     GTK_CURSOR_THEME "Bibata-Modern-Classic"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
 }
 
 cursor {
@@ -128,23 +129,25 @@ workspace "󰖟"
 workspace ""
 
 window-rule {
-    match app-id="helium"
+    match app-id=r#"(?i)^helium"#
+    match app-id=r#"(?i)^librewolf"#
     open-on-workspace "󰖟"
-}
-
-window-rule {
-    match app-id="librewolf"
-    open-on-workspace "󰖟"
+    default-column-width { proportion 0.5; }
+    open-maximized true
 }
 
 window-rule {
     match app-id="GitHub Desktop"
-    open-on-workspace "dev"
+    open-on-workspace ""
+    default-column-width { proportion 0.5; }
+    open-maximized true
 }
 
 window-rule {
-    match app-id="DBeaver"
-    open-on-workspace "dev"
+    match app-id=r#"(?i)dbeaver"#
+    open-on-workspace ""
+    default-column-width { proportion 0.5; }
+    open-maximized true
 }
 
 overview {
