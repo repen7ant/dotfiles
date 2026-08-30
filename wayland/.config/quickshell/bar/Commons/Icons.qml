@@ -15,6 +15,8 @@ Singleton {
     "volume":     "\u{eb51}",
     "volume-2":   "\u{eb4f}",
     "volume-off": "\u{f1c3}",
+    "mic":        "\u{eaf0}",
+    "mic-off":    "\u{ed16}",
     "wifi":         "\u{eb52}",
     "wifi-off":     "\u{ecfa}",
     "ethernet":     "\u{eccc}",

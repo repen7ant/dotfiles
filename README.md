@@ -65,5 +65,5 @@ stow -t ~ -D wayland
 ## Packages
 
 ```bash
-yay -S --needed discord dbeaver gimp github-desktop-bin helium-browser-bin libreoffice-still moonlight-qt qbittorrent telegram-desktop torbrowser-launcher virt-manager v2raya waypaper picard gpu-screen-recorder-ui fuzzel 7zip btop cmatrix cuetools fastfetch fd fzf less mpv neovim nmap ripgrep rsync shntool speedtest-cli tree unzip wget wl-clipboard yazi zip zoxide tailscale gpu-screen-recorder stow starship cmake composer docker docker-buildx docker-compose go jdk17-openjdk jdk21-openjdk kitty npm python-uv ruff git tree-sitter-cli niri swaybg wlsunset quickshell upower power-profiles-daemon mpd libvirt qemu-full ly
+yay -S --needed discord dbeaver gimp github-desktop-bin helium-browser-bin libreoffice-still moonlight-qt qbittorrent telegram-desktop torbrowser-launcher virt-manager v2raya waypaper picard gpu-screen-recorder-ui fuzzel 7zip btop cmatrix cuetools fastfetch fd fzf less mpv neovim nmap ripgrep rsync shntool speedtest-cli tree unzip wget wl-clipboard yazi zip zoxide tailscale gpu-screen-recorder stow starship cmake composer docker docker-buildx docker-compose go jdk17-openjdk jdk21-openjdk kitty npm python-uv ruff git tree-sitter-cli niri swaybg wlsunset quickshell upower power-profiles-daemon mpd libvirt qemu-full ly pavucontrol pipewire-pulse
 ```

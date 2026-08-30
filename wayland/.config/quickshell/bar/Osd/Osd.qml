@@ -19,6 +19,10 @@ Item {
 
   function show(m, v, mut) {
     if (!_ready) return
+    // Панель виджета уже показывает это значение крупнее и точнее —
+    // всплывающий индикатор поверх неё был бы дублем.
+    var anchor = m === "brightness" ? brightnessAnchor : volumeAnchor
+    if (anchor && anchor.panelOpen) return
     mode = m; value = v; muted = mut || false
     shown = true
     hideTimer.restart()
