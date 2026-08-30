@@ -8,10 +8,16 @@ Singleton {
   id: root
 
   property var workspaces: []
-  property string kbLayout: ""
+  property var kbNames: []
+  property int kbIdx: 0
+  readonly property string kbLayout: kbIdx < kbNames.length ? kbNames[kbIdx] : ""
 
   function focusWorkspace(ref) {
     Quickshell.execDetached(["niri", "msg", "action", "focus-workspace", String(ref)])
+  }
+
+  function switchLayout() {
+    Quickshell.execDetached(["niri", "msg", "action", "switch-layout", "next"])
   }
 
   function _handle(evt) {
@@ -26,7 +32,10 @@ Singleton {
       root.workspaces = copy
     } else if (evt.KeyboardLayoutsChanged) {
       var k = evt.KeyboardLayoutsChanged.keyboard_layouts
-      root.kbLayout = k.names[k.current_idx] || ""
+      root.kbNames = k.names
+      root.kbIdx = k.current_idx
+    } else if (evt.KeyboardLayoutSwitched) {
+      root.kbIdx = evt.KeyboardLayoutSwitched.idx
     }
   }
 
