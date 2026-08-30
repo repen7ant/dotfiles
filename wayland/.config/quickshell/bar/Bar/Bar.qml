@@ -38,6 +38,7 @@ Scope {
         id: right
         anchors { right: parent.right; verticalCenter: parent.verticalCenter; rightMargin: Theme.gap }
         spacing: Theme.gap
+        NotifBell {}
         KbLayout {}
         SysMon {}
         Network {}
