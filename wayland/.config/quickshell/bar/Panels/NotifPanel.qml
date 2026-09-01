@@ -7,6 +7,14 @@ Panel {
   id: root
   panelWidth: 340
 
+  Connections {
+    target: Notifs
+    function onCountChanged() {
+      if (Notifs.count === 0)
+        root.close()
+    }
+  }
+
   Item {
     width: parent.width
     height: 22
@@ -36,16 +44,6 @@ Panel {
         }
       }
     }
-  }
-
-  Text {
-    width: parent.width
-    visible: Notifs.count === 0
-    text: "No notifications"
-    horizontalAlignment: Text.AlignHCenter
-    font.family: Theme.fontFamily
-    font.pixelSize: Theme.fontSize
-    color: Theme.fgDim
   }
 
   Flickable {

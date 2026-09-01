@@ -17,7 +17,7 @@ Pill {
       ? "No notifications"
       : Notifs.count + (Notifs.count === 1 ? " notification" : " notifications")
 
-  onClicked: panel.toggle()
+  onClicked: if (Notifs.count > 0) panel.toggle()
   onRightClicked: Notifs.dnd = !Notifs.dnd
 
   NotifPanel {
