@@ -9,11 +9,17 @@ Item {
   property string label: ""
   property color  textColor: Theme.fg
   property color  iconColor: textColor
-  property int    labelMaxWidth: 0
+  property int    labelMaxWidth: -1   // -1 = unbounded; 0 = no room, collapse to the icon
   property string tooltipText: ""
   property bool   interactive: true
 
   readonly property bool labelVisible: label.length > 0
+
+  // Width the pill needs without any label: icon + spacings + padding.
+  // Deliberately independent of labelMaxWidth so layouts can use it to
+  // compute a label budget without creating a binding loop.
+  readonly property real chromeWidth:
+    (iconText.visible ? iconText.implicitWidth + contentRow.spacing : 0) + Theme.padH * 2
 
   signal clicked()
   signal rightClicked()
@@ -50,7 +56,7 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         height: labelText.implicitHeight
         clip: true
-        readonly property real fullWidth: root.labelMaxWidth > 0
+        readonly property real fullWidth: root.labelMaxWidth >= 0
           ? Math.min(labelText.implicitWidth, root.labelMaxWidth) : labelText.implicitWidth
         width: root.labelVisible ? fullWidth : 0
         opacity: root.labelVisible ? 1 : 0
